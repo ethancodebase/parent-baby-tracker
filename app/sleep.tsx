@@ -1,17 +1,24 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 
+interface SleepLog {
+  id: string;
+  type: string;
+  duration: string;
+  time: string;
+}
+
 export default function Sleep() {
-  const [sleepLogs, setSleepLogs] = useState([
+  const [sleepLogs, setSleepLogs] = useState<SleepLog[]>([
     { id: '1', type: 'Night Sleep', duration: '8 hours', time: '7:00 PM - 3:00 AM' },
     { id: '2', type: 'Morning Nap', duration: '2 hours', time: '9:00 AM - 11:00 AM' },
     { id: '3', type: 'Afternoon Nap', duration: '1.5 hours', time: '1:00 PM - 2:30 PM' },
   ]);
 
   const addSleepLog = () => {
-    const newLog = {
+    const newLog: SleepLog = {
       id: Date.now().toString(),
-      type: 'Sleep',
+      type: 'Quick Nap', // More descriptive than just 'Sleep'
       duration: '30 min',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
@@ -25,7 +32,11 @@ export default function Sleep() {
         <Text style={styles.subtitle}>Track your baby's sleep patterns</Text>
       </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={addSleepLog}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={addSleepLog}
+        accessibilityLabel="Log a new sleep entry"
+      >
         <Text style={styles.addButtonText}>😴 Log Sleep</Text>
       </TouchableOpacity>
 
@@ -38,18 +49,22 @@ export default function Sleep() {
 
       <View style={styles.logsList}>
         <Text style={styles.logsTitle}>Recent Sleep</Text>
-        {sleepLogs.map(log => (
-          <View key={log.id} style={styles.logItem}>
-            <View style={styles.logIcon}>
-              <Text style={styles.logIconText}>😴</Text>
+        {sleepLogs.length === 0 ? (
+          <Text style={styles.emptyText}>No sleep logs yet. Tap "Log Sleep" to add one!</Text>
+        ) : (
+          sleepLogs.map(log => (
+            <View key={log.id} style={[styles.logItem, styles.logItemShadow]}>
+              <View style={styles.logIcon}>
+                <Text style={styles.logIconText}>😴</Text>
+              </View>
+              <View style={styles.logContent}>
+                <Text style={styles.logType}>{log.type}</Text>
+                <Text style={styles.logDuration}>{log.duration}</Text>
+                <Text style={styles.logTime}>{log.time}</Text>
+              </View>
             </View>
-            <View style={styles.logContent}>
-              <Text style={styles.logType}>{log.type}</Text>
-              <Text style={styles.logDuration}>{log.duration}</Text>
-              <Text style={styles.logTime}>{log.time}</Text>
-            </View>
-          </View>
-        ))}
+          ))
+        )}
       </View>
     </ScrollView>
   );
@@ -68,10 +83,23 @@ const styles = StyleSheet.create({
   logsList: { paddingHorizontal: 20 },
   logsTitle: { fontSize: 18, fontWeight: '600', color: '#1e293b', marginBottom: 16 },
   logItem: { flexDirection: 'row', backgroundColor: 'white', padding: 16, marginBottom: 8, borderRadius: 12 },
+  logItemShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+  },
   logIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#f1f5f9', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
   logIconText: { fontSize: 18 },
   logContent: { flex: 1 },
   logType: { fontSize: 16, fontWeight: '600', color: '#1e293b' },
   logDuration: { fontSize: 14, color: '#10b981', marginTop: 2 },
   logTime: { fontSize: 14, color: '#64748b', marginTop: 2 },
+  emptyText: {
+    color: '#64748b',
+    fontSize: 15,
+    textAlign: 'center',
+    marginVertical: 20,
+  },
 });

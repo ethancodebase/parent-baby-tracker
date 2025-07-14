@@ -1,6 +1,44 @@
-# Welcome to your Expo app 👋
+# 👶 BabyCare AI Assistant – Your Smart Parenting Companion
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**BabyCare** is a **conversational AI assistant app** built with **React Native** and **Expo**, designed to support new parents through daily baby care routines. Featuring voice input/output, AI-powered suggestions, and a clean, responsive interface, the app helps simplify life during early parenthood.
+
+---
+
+## ✨ Key Features
+
+- 💬 **Conversational AI Assistant**
+  - Chat-style interface with voice interaction
+  - Static avatar representation of the AI guide
+  - API integration with AI models (e.g. OpenAI)
+
+- 🍼 **Personalized Onboarding**
+  - Setup flow for parent and baby profiles
+  - Configurable preferences for routines and notifications
+
+- 🎙️ **Voice Functionality**
+  - Speech-to-text input for hands-free interaction
+  - Text-to-speech output for conversational responses
+
+- 🌙 **Modular & Intelligent Dashboards**
+  - Daily care logs: feeding, sleep, mood, health
+  - Smart suggestions: meal plans, nap schedules, wellness checks
+  - Routine tracking and helpful tips
+
+- ✨ **Smooth & Soothing UI/UX**
+  - Soft animated transitions for stress-free navigation
+  - Clean layout optimized for one-handed use
+  - Accessibility-first design for tired parents
+
+- 📲 **Local Features**
+  - Push notifications for reminders and logs
+  - Handles permissions gracefully
+  - Local storage for offline-first experience
+
+## 📱 Screenshots
+
+<img src="screenshot2.png" alt="AI Chat Interface" width="250"/>
+<img src="screenshot1.png" alt="Well-being board" width="250"/>
+---
 
 ## Get started
 

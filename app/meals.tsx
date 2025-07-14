@@ -1,16 +1,21 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useState } from 'react';
+
+// Define age group type for type safety
+const ageGroups = ['6-8 months', '8-10 months', '10-12 months', '12+ months'] as const;
+type AgeGroup = typeof ageGroups[number];
 
 interface MealSuggestion {
   id: string;
   title: string;
   description: string;
-  ageGroup: string;
+  ageGroup: AgeGroup;
   ingredients: string[];
+  emoji?: string;
 }
 
 export default function Meals() {
-  const [selectedAge, setSelectedAge] = useState('6-8 months');
+  const [selectedAge, setSelectedAge] = useState<AgeGroup>('6-8 months');
   
   const mealSuggestions: MealSuggestion[] = [
     {
@@ -18,34 +23,40 @@ export default function Meals() {
       title: 'Sweet Potato Puree',
       description: 'Smooth, naturally sweet first food',
       ageGroup: '6-8 months',
-      ingredients: ['Sweet potato', 'Breast milk or formula']
+      ingredients: ['Sweet potato', 'Breast milk or formula'],
+      emoji: '🍠',
     },
     {
       id: '2',
       title: 'Banana Mash',
       description: 'Easy to digest, rich in potassium',
       ageGroup: '6-8 months',
-      ingredients: ['Ripe banana']
+      ingredients: ['Ripe banana'],
+      emoji: '🍌',
     },
     {
       id: '3',
       title: 'Avocado Fingers',
       description: 'Perfect for baby-led weaning',
       ageGroup: '8-10 months',
-      ingredients: ['Ripe avocado']
+      ingredients: ['Ripe avocado'],
+      emoji: '🥑',
     },
     {
       id: '4',
       title: 'Mini Meatballs',
       description: 'Soft protein-rich finger food',
       ageGroup: '10-12 months',
-      ingredients: ['Ground chicken', 'Breadcrumbs', 'Egg']
+      ingredients: ['Ground chicken', 'Breadcrumbs', 'Egg'],
+      emoji: '🍖',
     },
   ];
 
-  const ageGroups = ['6-8 months', '8-10 months', '10-12 months', '12+ months'];
-  
   const filteredMeals = mealSuggestions.filter(meal => meal.ageGroup === selectedAge);
+
+  const handleTryRecipe = (mealTitle: string) => {
+    Alert.alert('Recipe', `You selected: ${mealTitle}`);
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -61,6 +72,7 @@ export default function Meals() {
               key={age}
               style={[styles.ageButton, selectedAge === age && styles.selectedAgeButton]}
               onPress={() => setSelectedAge(age)}
+              accessibilityLabel={`Select age group ${age}`}
             >
               <Text style={[styles.ageButtonText, selectedAge === age && styles.selectedAgeButtonText]}>
                 {age}
@@ -71,23 +83,32 @@ export default function Meals() {
       </View>
 
       <View style={styles.mealsContainer}>
-        {filteredMeals.map(meal => (
-          <View key={meal.id} style={styles.mealCard}>
-            <Text style={styles.mealTitle}>{meal.title}</Text>
-            <Text style={styles.mealDescription}>{meal.description}</Text>
-            
-            <View style={styles.ingredientsContainer}>
-              <Text style={styles.ingredientsTitle}>Ingredients:</Text>
-              {meal.ingredients.map((ingredient, index) => (
-                <Text key={index} style={styles.ingredient}>• {ingredient}</Text>
-              ))}
+        {filteredMeals.length === 0 ? (
+          <Text style={styles.emptyText}>No meals found for this age group. Check back soon!</Text>
+        ) : (
+          filteredMeals.map(meal => (
+            <View key={meal.id} style={styles.mealCard}>
+              <View style={styles.mealHeader}>
+                <Text style={styles.mealEmoji}>{meal.emoji || '🍽️'}</Text>
+                <Text style={styles.mealTitle}>{meal.title}</Text>
+              </View>
+              <Text style={styles.mealDescription}>{meal.description}</Text>
+              <View style={styles.ingredientsContainer}>
+                <Text style={styles.ingredientsTitle}>Ingredients:</Text>
+                {meal.ingredients.map((ingredient, index) => (
+                  <Text key={index} style={styles.ingredient}>• {ingredient}</Text>
+                ))}
+              </View>
+              <TouchableOpacity
+                style={styles.tryButton}
+                onPress={() => handleTryRecipe(meal.title)}
+                accessibilityLabel={`Try recipe for ${meal.title}`}
+              >
+                <Text style={styles.tryButtonText}>Try This Recipe</Text>
+              </TouchableOpacity>
             </View>
-            
-            <TouchableOpacity style={styles.tryButton}>
-              <Text style={styles.tryButtonText}>Try This Recipe</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+          ))
+        )}
       </View>
 
       <View style={styles.tipCard}>
@@ -158,6 +179,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
   },
+  mealHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  mealEmoji: {
+    fontSize: 24,
+    marginRight: 8,
+  },
   mealTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -210,5 +240,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#92400e',
     lineHeight: 20,
+  },
+  emptyText: {
+    color: '#64748b',
+    fontSize: 15,
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });

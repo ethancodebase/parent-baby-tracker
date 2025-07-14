@@ -1,14 +1,23 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import DashboardWidget from '../components/DashboardWidget';
+import { useMemo } from 'react';
 
 export default function Dashboard() {
   const router = useRouter();
 
+  // Dynamic greeting based on time of day
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning!';
+    if (hour < 18) return 'Good afternoon!';
+    return 'Good evening!';
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>Good morning!</Text>
+        <Text style={styles.greeting}>{greeting}</Text>
         <Text style={styles.subtitle}>How can I help you today?</Text>
       </View>
 
@@ -27,7 +36,7 @@ export default function Dashboard() {
               Tummy time helps strengthen your baby's neck and shoulder muscles. Try 3-5 minutes several times a day.
             </Text>
           }
-          backgroundColor="#fef3c7"
+          backgroundColor="#fde68a" // More visually distinct
         />
 
         <DashboardWidget
@@ -45,33 +54,37 @@ export default function Dashboard() {
         <DashboardWidget
           title="Baby Logs"
           content={
-            <View>
-              <Text style={styles.logItem}>Last feeding: 2 hours ago</Text>
-              <Text style={styles.logItem}>Last diaper change: 45 min ago</Text>
-              <Text style={styles.logItem}>Sleep: 3 hours last night</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+              <View>
+                <Text style={styles.logItem}>Last feeding: 2 hours ago</Text>
+                <Text style={styles.logItem}>Last diaper change: 45 min ago</Text>
+                <Text style={styles.logItem}>Sleep: 3 hours last night</Text>
+              </View>
+              <TouchableOpacity onPress={() => router.push('/logs')} style={styles.seeAllButton}>
+                <Text style={styles.seeAllText}>See All</Text>
+              </TouchableOpacity>
             </View>
           }
-          onPress={() => router.push('/logs')}
           backgroundColor="#dbeafe"
         />
 
         <View style={styles.quickActions}>
           <TouchableOpacity 
-            style={styles.actionButton}
+            style={[styles.actionButton, styles.actionButtonShadow]}
             onPress={() => router.push('/meals')}
           >
             <Text style={styles.actionText}>🍼 Meals</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={styles.actionButton}
+            style={[styles.actionButton, styles.actionButtonShadow]}
             onPress={() => router.push('/sleep')}
           >
             <Text style={styles.actionText}>😴 Sleep</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={styles.actionButton}
+            style={[styles.actionButton, styles.actionButtonShadow]}
             onPress={() => router.push('/wellbeing')}
           >
             <Text style={styles.actionText}>💚 Wellbeing</Text>
@@ -145,9 +158,23 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
   },
-  actionText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#374151',
+  actionButtonShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  seeAllButton: {
+    backgroundColor: '#6366f1',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+    marginLeft: 10,
+  },
+  seeAllText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '600',
   },
 });

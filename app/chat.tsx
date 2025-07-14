@@ -1,6 +1,15 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useState, useRef } from 'react';
-import ChatMessage from '../components/ChatMessage';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { useState, useRef } from "react";
+import ChatMessage from "../components/ChatMessage";
 
 interface Message {
   id: string;
@@ -12,13 +21,13 @@ interface Message {
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
-      text: 'Hello! I\'m your AI parenting assistant. How can I help you today?',
+      id: "1",
+      text: "Hello! I'm your AI parenting assistant. How can I help you today?",
       isUser: false,
-      timestamp: '9:00 AM'
-    }
+      timestamp: "9:00 AM",
+    },
   ]);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -28,21 +37,27 @@ export default function Chat() {
         id: Date.now().toString(),
         text: inputText,
         isUser: true,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
-      
-      setMessages(prev => [...prev, newMessage]);
-      setInputText('');
-      
+
+      setMessages((prev) => [...prev, newMessage]);
+      setInputText("");
+
       // Simulate AI response
       setTimeout(() => {
         const aiResponse: Message = {
           id: (Date.now() + 1).toString(),
-          text: 'That\'s a great question! Based on your baby\'s age and development, I\'d recommend...',
+          text: "That's a great question! Based on your baby's age and development, I'd recommend...",
           isUser: false,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
         };
-        setMessages(prev => [...prev, aiResponse]);
+        setMessages((prev) => [...prev, aiResponse]);
       }, 1000);
     }
   };
@@ -53,9 +68,9 @@ export default function Chat() {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.header}>
         <Text style={styles.headerTitle}>AI Assistant</Text>
@@ -63,13 +78,15 @@ export default function Chat() {
           <Text style={styles.avatar}>🤖</Text>
         </View>
       </View>
-      
-      <ScrollView 
+
+      <ScrollView
         ref={scrollViewRef}
         style={styles.messagesContainer}
-        onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
+        onContentSizeChange={() =>
+          scrollViewRef.current?.scrollToEnd({ animated: true })
+        }
       >
-        {messages.map(message => (
+        {messages.map((message) => (
           <ChatMessage
             key={message.id}
             message={message.text}
@@ -78,7 +95,7 @@ export default function Chat() {
           />
         ))}
       </ScrollView>
-      
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -89,15 +106,17 @@ export default function Chat() {
           multiline
           maxLength={500}
         />
-        
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={[styles.voiceButton, isRecording && styles.recordingButton]}
           onPress={toggleRecording}
         >
-          <Text style={styles.voiceButtonText}>{isRecording ? '⏹️' : '🎤'}</Text>
+          <Text style={styles.voiceButtonText}>
+            {isRecording ? "⏹️" : "🎤"}
+          </Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={styles.sendButton}
           onPress={sendMessage}
           disabled={!inputText.trim()}
@@ -112,31 +131,31 @@ export default function Chat() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#fefefe",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingTop: 60,
     paddingBottom: 16,
-    backgroundColor: '#f8f9ff',
+    backgroundColor: "#f8f9ff",
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: "#e2e8f0",
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#1e293b',
+    fontWeight: "600",
+    color: "#1e293b",
   },
   avatarContainer: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#6366f1',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#6366f1",
+    alignItems: "center",
+    justifyContent: "center",
   },
   avatar: {
     fontSize: 20,
@@ -146,17 +165,17 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    alignItems: "flex-end",
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#f8f9ff',
+    backgroundColor: "#f8f9ff",
     borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
+    borderTopColor: "#e2e8f0",
   },
   textInput: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -164,31 +183,31 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: "#e2e8f0",
   },
   voiceButton: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#10b981',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#10b981",
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 8,
   },
   recordingButton: {
-    backgroundColor: '#ef4444',
+    backgroundColor: "#ef4444",
   },
   voiceButtonText: {
     fontSize: 18,
   },
   sendButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: "#6366f1",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 20,
   },
   sendButtonText: {
-    color: 'white',
-    fontWeight: '600',
+    color: "white",
+    fontWeight: "600",
   },
 });

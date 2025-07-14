@@ -72,7 +72,7 @@ export default function Onboarding() {
       
       {renderStep()}
       
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
         onPress={handleNext}
       >

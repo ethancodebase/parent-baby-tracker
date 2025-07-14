@@ -38,6 +38,7 @@
 
 <img src="screenshot2.png" alt="AI Chat Interface" width="250"/>
 <img src="screenshot1.png" alt="Well-being board" width="250"/>
+
 ---
 
 ## Get started

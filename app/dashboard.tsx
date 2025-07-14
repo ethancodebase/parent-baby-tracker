@@ -1,7 +1,13 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import DashboardWidget from '../components/DashboardWidget';
-import { useMemo } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { useRouter } from "expo-router";
+import DashboardWidget from "../components/DashboardWidget";
+import { useMemo } from "react";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -9,9 +15,9 @@ export default function Dashboard() {
   // Dynamic greeting based on time of day
   const greeting = useMemo(() => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning!';
-    if (hour < 18) return 'Good afternoon!';
-    return 'Good evening!';
+    if (hour < 12) return "Good morning!";
+    if (hour < 18) return "Good afternoon!";
+    return "Good evening!";
   }, []);
 
   return (
@@ -21,9 +27,9 @@ export default function Dashboard() {
         <Text style={styles.subtitle}>How can I help you today?</Text>
       </View>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.chatButton}
-        onPress={() => router.push('/chat')}
+        onPress={() => router.push("/chat")}
       >
         <Text style={styles.chatButtonText}>💬 Chat with AI Assistant</Text>
       </TouchableOpacity>
@@ -33,7 +39,8 @@ export default function Dashboard() {
           title="Daily Tip"
           content={
             <Text style={styles.tipText}>
-              Tummy time helps strengthen your baby's neck and shoulder muscles. Try 3-5 minutes several times a day.
+              Tummy time helps strengthen your baby's neck and shoulder muscles.
+              Try 3-5 minutes several times a day.
             </Text>
           }
           backgroundColor="#fde68a" // More visually distinct
@@ -43,24 +50,37 @@ export default function Dashboard() {
           title="Today's Routine"
           content={
             <View>
-              <Text style={styles.routineItem}>✅ Morning feeding - 7:00 AM</Text>
+              <Text style={styles.routineItem}>
+                ⏰ Morning feeding - 7:00 AM
+              </Text>
               <Text style={styles.routineItem}>⏰ Tummy time - 10:00 AM</Text>
               <Text style={styles.routineItem}>⏰ Afternoon nap - 1:00 PM</Text>
             </View>
           }
-          onPress={() => router.push('/routines')}
+          onPress={() => router.push("/routines")}
         />
 
         <DashboardWidget
           title="Baby Logs"
           content={
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <View>
                 <Text style={styles.logItem}>Last feeding: 2 hours ago</Text>
-                <Text style={styles.logItem}>Last diaper change: 45 min ago</Text>
+                <Text style={styles.logItem}>
+                  Last diaper change: 45 min ago
+                </Text>
                 <Text style={styles.logItem}>Sleep: 3 hours last night</Text>
               </View>
-              <TouchableOpacity onPress={() => router.push('/logs')} style={styles.seeAllButton}>
+              <TouchableOpacity
+                onPress={() => router.push("/logs")}
+                style={styles.seeAllButton}
+              >
                 <Text style={styles.seeAllText}>See All</Text>
               </TouchableOpacity>
             </View>
@@ -69,23 +89,23 @@ export default function Dashboard() {
         />
 
         <View style={styles.quickActions}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonShadow]}
-            onPress={() => router.push('/meals')}
+            onPress={() => router.push("/meals")}
           >
             <Text style={styles.actionText}>🍼 Meals</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonShadow]}
-            onPress={() => router.push('/sleep')}
+            onPress={() => router.push("/sleep")}
           >
             <Text style={styles.actionText}>😴 Sleep</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonShadow]}
-            onPress={() => router.push('/wellbeing')}
+            onPress={() => router.push("/wellbeing")}
           >
             <Text style={styles.actionText}>💚 Wellbeing</Text>
           </TouchableOpacity>
@@ -98,7 +118,7 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9ff',
+    backgroundColor: "#f8f9ff",
   },
   header: {
     padding: 20,
@@ -106,75 +126,75 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1e293b',
+    fontWeight: "bold",
+    color: "#1e293b",
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748b',
+    color: "#64748b",
   },
   chatButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: "#6366f1",
     marginHorizontal: 20,
     marginBottom: 20,
     paddingVertical: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
   },
   chatButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   widgets: {
     paddingHorizontal: 20,
   },
   tipText: {
     fontSize: 14,
-    color: '#92400e',
+    color: "#92400e",
     lineHeight: 20,
   },
   routineItem: {
     fontSize: 14,
-    color: '#475569',
+    color: "#475569",
     marginBottom: 4,
   },
   logItem: {
     fontSize: 14,
-    color: '#1e40af',
+    color: "#1e40af",
     marginBottom: 4,
   },
   quickActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 10,
   },
   actionButton: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingVertical: 12,
     marginHorizontal: 4,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   actionButtonShadow: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
     elevation: 2,
   },
   seeAllButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: "#6366f1",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
     marginLeft: 10,
   },
   seeAllText: {
-    color: 'white',
+    color: "white",
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });

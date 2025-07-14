@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from "react-native";
 
 interface ChatMessageProps {
   message: string;
@@ -6,11 +6,24 @@ interface ChatMessageProps {
   timestamp: string;
 }
 
-export default function ChatMessage({ message, isUser, timestamp }: ChatMessageProps) {
+export default function ChatMessage({
+  message,
+  isUser,
+  timestamp,
+}: ChatMessageProps) {
   return (
-    <View style={[styles.container, isUser ? styles.userContainer : styles.aiContainer]}>
-      <View style={[styles.bubble, isUser ? styles.userBubble : styles.aiBubble]}>
-        <Text style={[styles.messageText, isUser ? styles.userText : styles.aiText]}>
+    <View
+      style={[
+        styles.container,
+        isUser ? styles.userContainer : styles.aiContainer,
+      ]}
+    >
+      <View
+        style={[styles.bubble, isUser ? styles.userBubble : styles.aiBubble]}
+      >
+        <Text
+          style={[styles.messageText, isUser ? styles.userText : styles.aiText]}
+        >
           {message}
         </Text>
         <Text style={styles.timestamp}>{timestamp}</Text>
@@ -25,23 +38,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   userContainer: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   aiContainer: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   bubble: {
-    maxWidth: '80%',
+    maxWidth: "80%",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 18,
   },
   userBubble: {
-    backgroundColor: '#6366f1',
+    backgroundColor: "#6366f1",
     borderBottomRightRadius: 4,
   },
   aiBubble: {
-    backgroundColor: '#f1f5f9',
+    backgroundColor: "#f1f5f9",
     borderBottomLeftRadius: 4,
   },
   messageText: {
@@ -49,15 +62,15 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   userText: {
-    color: 'white',
+    color: "white",
   },
   aiText: {
-    color: '#1e293b',
+    color: "#1e293b",
   },
   timestamp: {
     fontSize: 12,
-    color: '#64748b',
+    color: "#64748b",
     marginTop: 4,
-    textAlign: 'right',
+    textAlign: "right",
   },
 });

@@ -1,19 +1,26 @@
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 
 export default function Onboarding() {
   const router = useRouter();
   const [step, setStep] = useState(1);
-  const [parentName, setParentName] = useState('');
-  const [babyName, setBabyName] = useState('');
-  const [babyAge, setBabyAge] = useState('');
+  const [parentName, setParentName] = useState("");
+  const [babyName, setBabyName] = useState("");
+  const [babyAge, setBabyAge] = useState("");
 
   const handleNext = () => {
     if (step < 3) {
       setStep(step + 1);
     } else {
-      router.push('/dashboard');
+      router.push("/dashboard");
     }
   };
 
@@ -69,15 +76,12 @@ export default function Onboarding() {
         <Text style={styles.title}>Setup Your Profile</Text>
         <Text style={styles.subtitle}>Step {step} of 3</Text>
       </View>
-      
+
       {renderStep()}
-      
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleNext}
-      >
+
+      <TouchableOpacity style={styles.button} onPress={handleNext}>
         <Text style={styles.buttonText}>
-          {step === 3 ? 'Complete Setup' : 'Next'}
+          {step === 3 ? "Complete Setup" : "Next"}
         </Text>
       </TouchableOpacity>
     </ScrollView>
@@ -87,55 +91,55 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9ff',
+    backgroundColor: "#f8f9ff",
     paddingHorizontal: 20,
     paddingTop: 60,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 40,
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1e293b',
+    fontWeight: "bold",
+    color: "#1e293b",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748b',
+    color: "#64748b",
   },
   stepContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 60,
   },
   stepTitle: {
     fontSize: 22,
-    fontWeight: '600',
-    color: '#1e293b',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "#1e293b",
+    textAlign: "center",
     marginBottom: 30,
   },
   input: {
-    width: '100%',
-    backgroundColor: 'white',
+    width: "100%",
+    backgroundColor: "white",
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: "#e2e8f0",
   },
   button: {
-    backgroundColor: '#6366f1',
+    backgroundColor: "#6366f1",
     paddingVertical: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });

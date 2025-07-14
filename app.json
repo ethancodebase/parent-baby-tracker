@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "MimiBaby",
-    "slug": "MimiBaby",
+    "name": "Parent AI Companion",
+    "slug": "baby-parent-voice",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mimibaby",
+    "scheme": "baby-parent-voice",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
@@ -37,6 +37,9 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
